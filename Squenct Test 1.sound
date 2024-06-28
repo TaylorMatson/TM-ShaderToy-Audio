@@ -1,0 +1,51 @@
+#define time2 time*BPM_TO_TIME // use for env, not osc
+
+vec2 mainSound( int samp, float time )
+{
+    
+    float pc = 120./BPM; // Pitch correction
+    
+    float dest = 0.; // desitnation bus
+    
+    float kick_env = 2.*exp(-6.*quarter(time2, 0.));
+    float kick_osc = sin(TAU*58.*time);
+    
+    dest += (kick_env*kick_osc);
+    
+    float bass_env = sin(100.*exp(-10.*whole(time2, .25)));
+    float bass_osc = sin(TAU*30.*time);
+    
+    dest += (.5*bass_env*bass_osc);
+    
+    float ch_env = .01+exp(-10.*sixteenth(time2, 0.));
+    float ch_osc = random(time);
+    
+    dest += .1*(ch_env*ch_osc);
+    
+    float oh_env = .01+exp(-10.*quarter(time2, .5));
+    float oh_osc = random(time); // (.5*sin(TAU*1500.*time))*exp(fract(-10.*time));
+    
+    dest += .1*(oh_env*oh_osc);
+    
+    float pc1_env = .01+exp(-10.*fract(time2*2.+.8));
+    float pc1_osc = (.5*sin(TAU*1500.*time))*exp(fract(-10.*time2));
+    
+    //dest += .1*(pc1_env*pc1_osc);
+    
+    return vec2(dest);
+    
+}
+
+    //float vol_mod = (saw2((TAU*1.*time), 0.)+1.)/2.;
+    //float freq_mod = saw1(TAU*2.)+1.;
+    
+    //float osc = sin(TAU*(freq_mod*600.*time));
+    
+    //float ss = vol_mod*osc; // sequenced signal
+    
+    //if (ss != 0.0) 
+    //{
+    //    ss *= exp(-1.*time);
+    //}
+    //
+    //return vec2( vol_mod*osc );
