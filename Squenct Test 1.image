@@ -1,0 +1,13 @@
+#define time2 iTime*BPM_TO_TIME // use for env
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    float phase = 0.;
+    float wN = whole(iTime, phase);
+    float qN = quarter(iTime, phase);
+    float sN = sixteenth(iTime, phase);
+    
+    
+    // Output to screen
+    fragColor = vec4(1.0)*sN;
+}

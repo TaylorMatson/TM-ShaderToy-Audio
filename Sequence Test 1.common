@@ -1,0 +1,14 @@
+#define PI 3.1415926535
+#define TAU 6.2831853071
+#define BPM 128.
+#define BPM_TO_TIME (1./120.)*BPM
+
+// Time Signatures
+float whole     (float time, float phase){ return fract(time   +phase); }
+float quarter   (float time, float phase){ return fract(time*2.+phase); }
+float sixteenth (float time, float phase){ return fract(time*8.+phase); }
+
+// Function to generate pseudo-random noise
+float random(float time) {
+    return fract(sin(dot(time, 78.233)) * 43758.5453123);
+}
